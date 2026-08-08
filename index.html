@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MATILDE_PIZARRO.EXE</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="bootSplash">
+  <img class="bootlogo-img" src="assets/img/boot-logo.png" alt="Matilde Pizarro">
+  <div class="bootlogo">MATILDE_OS 98</div>
+  <div class="bootbar"><div class="bootbarfill"></div></div>
+  <div class="bootsub">Cargando el sistema de Matilde Pizarro...</div>
+</div>
+
+<div id="desktop">
+  <div class="icon" id="iconMiPC"><div class="glyph">🖥</div>Mi PC</div>
+  <div class="icon" id="iconPapelera"><div class="glyph">🗑</div>Papelera</div>
+  <div class="icon" id="iconDocs"><div class="glyph">📁</div>Mis documentos</div>
+  <div class="icon" id="iconPublicitador"><div class="glyph">📢</div>Publicitador</div>
+  <div class="icon" id="iconGrabadora"><div class="glyph">🎙</div>Grabadora de audio</div>
+  <div class="icon" id="iconWebcam"><div class="glyph">📷</div>Webcam</div>
+  <div class="icon" id="iconMainExe"><div class="glyph">🎵</div>MATILDE_PIZARRO.EXE</div>
+  <div class="icon" id="iconWinamp"><div class="glyph">💿</div>Winamp</div>
+  <div class="icon" id="iconIE"><div class="glyph">🌐</div>Internet Explorer</div>
+  <div class="icon" id="iconNotepad"><div class="glyph">📝</div>Bloc de notas</div>
+  <div class="icon" id="iconCalc"><div class="glyph">🧮</div>Calculadora</div>
+  <div class="icon" id="iconPaint"><div class="glyph">🎨</div>Paint</div>
+  <div class="icon" id="iconMinesweeper"><div class="glyph">💣</div>Buscaminas</div>
+  <div class="icon" id="iconSolitario"><div class="glyph">💗</div>Solitario</div>
+  <div class="icon" id="iconSudoku"><div class="glyph">🌸</div>Sudoku</div>
+  <div class="icon" id="iconPinball"><div class="glyph">🚀</div>Pinball 3D</div>
+  <div class="icon" id="iconTetris"><div class="glyph">💗</div>Tetris Kawaii</div>
+  <div class="icon" id="iconCalendar"><div class="glyph">🌷</div>Calendario</div>
+  <div class="icon" id="iconGlitchToggle"><div class="glyph">🐛</div>Efectos de virus</div>
+  <div id="songIcons"></div>
+</div>
+
+<div id="ctxMenu">
+  <ul>
+    <li id="ctxRefresh">🔄 Actualizar</li>
+    <li id="ctxArrange">✨ Organizar íconos</li>
+    <li class="sep"></li>
+    <li id="ctxProps">🖼 Propiedades de pantalla</li>
+    <li id="ctxAbout">💌 Acerca de MATILDE_OS</li>
+  </ul>
+</div>
+
+<!-- MAIN WINDOW -->
+<div id="windowsStack">
+<div class="win" id="mainWin" style="display:none;">
+  <div class="titlebar">
+    <div class="ttl"><span class="ico"></span> MATILDE_PIZARRO.EXE - Cartel_del_show.doc</div>
+    <div class="winbtns">
+      <button title="Minimizar">_</button>
+      <button title="Maximizar">▢</button>
+      <button title="Cerrar" id="closeBtn">✕</button>
+    </div>
+  </div>
+  <div class="menubar">
+    <span>Archivo</span><span>Edición</span><span>Ver</span><span>Formato</span><span>Ayuda</span>
+  </div>
+  <div class="win-body">
+
+    <div class="poster-title">MATILDE PIZARRO</div>
+    <div class="poster-sub" id="posterStatus">SISTEMA EN ESPERA — SIN FUNCIÓN SELECCIONADA</div>
+
+    <div class="divider"></div>
+
+    <div class="fieldrow">
+      <label>Publicitando:</label>
+      <select id="showSelect" class="inset" style="flex:1;padding:3px 6px; font-family:'W98',Tahoma,sans-serif; font-size:12px; border:1px solid #808080;"></select>
+    </div>
+    <div class="fieldrow"><label>Fecha:</label><div class="inset" id="fieldFecha" style="flex:1;padding:3px 6px;">—</div></div>
+    <div class="fieldrow"><label>Lugar:</label><div class="inset" id="fieldLugar" style="flex:1;padding:3px 6px;">—</div></div>
+    <div class="fieldrow">
+      <label>Letras:</label>
+      <select id="lyricsSelect" class="inset" style="flex:1;padding:3px 6px; font-family:'W98',Tahoma,sans-serif; font-size:12px; border:1px solid #808080;">
+        <option value="">— Selecciona una letra —</option>
+      </select>
+    </div>
+    <div class="fieldrow"><label>Horario:</label><div class="inset" id="fieldHorario" style="flex:1;padding:3px 6px;">—</div></div>
+    <div class="fieldrow"><label>Reproduciendo:</label><div class="inset" id="nowPlayingField" style="flex:1;padding:3px 6px;">Ningún archivo abierto</div></div>
+    <div class="fieldrow"><label></label><button class="btn98" id="autoPlayToggle" style="flex:1;">▶ Reproducción automática: OFF</button></div>
+
+    <div class="divider"></div>
+
+    <div class="fieldrow">
+      <label>Winamp.exe:</label>
+      <div class="inset eq" style="flex:1; padding:2px 6px;">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+    </div>
+
+    <div class="marquee-free"><span id="marqueeSpan">*** MATILDE_OS — SISTEMA DE MATILDE PIZARRO — SELECCIONA UNA FECHA PARA PUBLICITAR EL SHOW ***&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+    <div style="font-size:11px; text-align:center; margin-top:4px; color:#000080;">Doble clic en los archivos del escritorio (📄) para abrir la letra y marcarla como en reproducción.</div>
+
+    <div class="statusbar">
+      <div>Listo</div>
+      <div>Recursos del sistema: <span id="resPct">100%</span></div>
+      <div>Glitches: <span id="glitchCount">0</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- GRABADORA DE SONIDO (graba de verdad al público, exporta WAV) -->
+<div class="win" id="recWin" style="display:none;">
+  <div class="titlebar">
+    <div class="ttl"><span class="ico"></span> Grabadora de sonido</div>
+    <div class="winbtns">
+      <button title="Minimizar">_</button>
+      <button title="Maximizar">▢</button>
+      <button title="Cerrar" id="recCloseBtn">✕</button>
+    </div>
+  </div>
+  <div class="win-body">
+    <div class="fieldrow" style="justify-content:center; gap:10px;">
+      <button class="btn98" id="recBtn">⏺ Grabar público</button>
+      <button class="btn98" id="stopBtn" disabled>⏹ Detener</button>
+      <button class="btn98" id="downloadBtn" disabled>💾 Guardar .wav</button>
+    </div>
+    <div class="fieldrow">
+      <label>Estado:</label>
+      <div class="inset" id="recStatus" style="flex:1;padding:3px 6px;">Detenido</div>
+    </div>
+    <div class="fieldrow">
+      <label>Duración:</label>
+      <div class="inset" id="recTime" style="flex:1;padding:3px 6px;">00:00</div>
+    </div>
+    <div class="fieldrow" style="font-size:11px; color:#404040;">
+      Esta ventana graba de verdad el audio ambiente/micrófono para dejar un registro del show. Al detener, se puede exportar como archivo .wav.
+    </div>
+  </div>
+</div>
+
+<!-- WEBCAM.EXE — ventana siempre abierta, arrastrable y redimensionable, con vista en vivo -->
+<div class="win" id="webcamWin" style="display:none; top:60px; left:20px; width:300px; z-index:205;">
+  <div class="titlebar">
+    <div class="ttl"><span class="ico"></span> Webcam.exe</div>
+    <div class="winbtns">
+      <button title="Minimizar">_</button>
+      <button title="Maximizar">▢</button>
+      <button title="Cerrar" id="webcamCloseBtn">✕</button>
+    </div>
+  </div>
+  <div class="win-body" id="webcamBody" style="padding:6px;">
+    <div class="inset" id="webcamFrame" style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#000;">
+      <video id="webcamVideo" autoplay playsinline muted style="display:none;"></video>
+      <canvas id="webcamCanvas" width="320" height="240" style="width:100%; height:100%; display:block; image-rendering:pixelated;"></canvas>
+      <div id="webcamScanlines" style="position:absolute; inset:0; pointer-events:none; background:repeating-linear-gradient(to bottom, rgba(0,0,0,0.18) 0px, rgba(0,0,0,0.18) 1px, transparent 1px, transparent 2px); mix-blend-mode:multiply;"></div>
+      <div id="webcamVignette" style="position:absolute; inset:0; pointer-events:none; box-shadow: inset 0 0 30px 8px rgba(0,0,0,0.55);"></div>
+      <div id="webcamNoSignal" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#0f0; font-size:11px; text-align:center; padding:8px; background:#000;">Iniciando cámara…</div>
+      <div id="webcamCountdown" style="position:absolute; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.35); color:#fff; font-size:56px; font-weight:bold; text-shadow:0 0 14px #000,0 0 4px #000; font-family:Tahoma,sans-serif; z-index:6; pointer-events:none;"></div>
+      <div id="webcamFlash" style="position:absolute; inset:0; background:#fff; opacity:0; pointer-events:none; z-index:7;"></div>
+      <div id="webcamRecBadge" style="position:absolute; top:6px; left:6px; display:none; align-items:center; gap:5px; background:rgba(0,0,0,0.55); color:#fff; font-size:11px; font-family:Tahoma,sans-serif; padding:2px 7px; border-radius:10px; z-index:8; pointer-events:none;">
+        <span style="width:9px; height:9px; border-radius:50%; background:#ff3b3b; display:inline-block; animation:webcamRecBlink 1s infinite;"></span>
+        <span id="webcamRecTime">00:00</span>
+      </div>
+    </div>
+    <div class="fieldrow" style="margin-top:6px;">
+      <label>Cámara:</label>
+      <select id="webcamDeviceSelect" class="inset" style="flex:1; padding:2px 4px; font-family:'W98',Tahoma,sans-serif; font-size:11px; border:1px solid #808080;"></select>
+    </div>
+    <div class="fieldrow">
+      <label>Filtro:</label>
+      <select id="webcamFilterSelect" class="inset" style="flex:1; padding:2px 4px; font-family:'W98',Tahoma,sans-serif; font-size:11px; border:1px solid #808080;">
+        <option value="crt98">CRT Win98 (256 colores)</option>
+        <option value="mono">Monocromo verde</option>
+        <option value="grey">Escala de grises</option>
+        <option value="vhs">Cinta VHS</option>
+        <option value="corrupt">Video corrupto</option>
+        <option value="none">Sin filtro</option>
+      </select>
+    </div>
+    <div class="fieldrow">
+      <label><input type="checkbox" id="webcamFxToggle" checked style="vertical-align:middle;"> Efectos especiales</label>
+      <select id="webcamFxIntensity" class="inset" style="flex:1; padding:2px 4px; font-family:'W98',Tahoma,sans-serif; font-size:11px; border:1px solid #808080;">
+        <option value="soft">Glitches: suaves</option>
+        <option value="hard" selected>Glitches: intensos</option>
+        <option value="chaos">Glitches: caóticos</option>
+      </select>
+      <button id="webcamGlitchBtn" style="font-family:'W98',Tahoma,sans-serif; font-size:11px; padding:1px 6px;">⚡</button>
+    </div>
+    <div class="fieldrow">
+      <button id="webcamPhotoBtn" style="flex:1; font-family:'W98',Tahoma,sans-serif; font-size:12px; font-weight:bold; padding:4px 6px; color:#7a1257;">📸 Tomar foto (cuenta regresiva)</button>
+    </div>
+    <div class="fieldrow">
+      <button id="webcamVideoBtn" style="flex:1; font-family:'W98',Tahoma,sans-serif; font-size:12px; font-weight:bold; padding:4px 6px; color:#7a1257;">🔴 Grabar video (con audio)</button>
+    </div>
+    <div class="fieldrow" style="font-size:10px; color:#404040;">
+      <span id="webcamVideoStatus"></span>
+    </div>
+    <div class="fieldrow" style="font-size:10px; color:#404040;">
+      <span id="webcamStatus">Esperando permiso de cámara…</span>
+    </div>
+  </div>
+  <div id="webcamResizeHandle" title="Cambiar tamaño" style="position:absolute; right:1px; bottom:1px; width:14px; height:14px; cursor:nwse-resize; background:repeating-linear-gradient(135deg,#808080 0 2px,transparent 2px 4px);"></div>
+</div>
+</div>
+
+<div class="win" id="posterWin" style="display:none; top:70px; left:24px; width:320px; height:400px; z-index:206;">
+  <div class="titlebar">
+    <div class="ttl"><span class="ico"></span> <span id="posterTitle">AFICHE_PIMENTON.JPG</span></div>
+    <div class="winbtns">
+      <button id="posterMinBtn" title="Minimizar">_</button>
+      <button id="posterCloseBtn" title="Cerrar">X</button>
+    </div>
+  </div>
+  <div class="win-body" id="posterBody" style="padding:6px;">
+    <div class="inset poster-glitch-frame" id="posterFrame">
+      <img id="posterImg" alt="Afiche del show">
+    </div>
+    <div class="fieldrow" style="font-size:10px; color:#404040; margin-top:4px;">
+      <span id="posterCaption">El Pimentón — Av. Ecuador 27, Valparaíso · Miércoles 5 de Agosto</span>
+    </div>
+  </div>
+  <div id="posterResizeHandle" title="Cambiar tamaño" style="position:absolute; right:1px; bottom:1px; width:14px; height:14px; cursor:nwse-resize; background:repeating-linear-gradient(135deg,#808080 0 2px,transparent 2px 4px);"></div>
+</div>
+
+<div id="clippy">
+  <div class="bubble" id="clippyText">¿Parece que estás organizando un show. ¿Quieres reservar tu mesa?</div>
+  <div class="face"></div>
+</div>
+
+<div id="screenflash"></div>
+<div id="glitchOverlay"></div>
+<div id="screensaver"><div id="ssPipe"></div></div>
+
+<div id="bsod"></div>
+
+<div id="taskbar">
+  <div id="startBtn"><span class="flag"></span> Inicio</div>
+  <div class="tasksep"></div>
+  <div class="taskitem" id="taskMain" style="display:none;">🎵 MATILDE_PIZARRO.EXE</div>
+  <div id="errTaskWrap" style="display:flex; gap:4px;"></div>
+  <div id="trayWrap">
+    <span class="trayicon" id="trayVolume" title="Volumen">🔊</span>
+    <span class="trayicon" id="trayHelp" title="Ayuda">❓</span>
+    <span class="trayicon" id="trayHeart" title="Estado del sistema">💖</span>
+  </div>
+  <div id="clock">00:00</div>
+</div>
+
+<div id="startMenu">
+  <div class="banner">WINDOWS 98</div>
+  <ul>
+    <li id="smProgramas">📁 Programas</li>
+    <li id="smDocs">📄 Documentos</li>
+    <li id="smProps">⚙ Configuración</li>
+    <li id="smBuscar">🔍 Buscar</li>
+    <li id="smHelp">❓ Ayuda</li>
+    <li id="smMixer">🎚 Mezclador de volumen</li>
+    <li id="smRun">🎵 Ejecutar... MATILDE_PIZARRO.EXE</li>
+    <li id="smFormat">💽 Formatear e instalar el sistema...</li>
+    <li id="smShutdown">⏻ Apagar el sistema...</li>
+  </ul>
+</div>
+
+<!-- Submenú "Programas" (aparece a la izquierda del Inicio) -->
+<div id="programsMenu">
+  <ul>
+    <li id="pmMain">🎵 MATILDE_PIZARRO.EXE</li>
+    <li id="pmGrabadora">🎙 Grabadora de sonido</li>
+    <li id="pmWebcam">📷 Webcam.exe</li>
+    <li id="pmMixer">🎚 Control de volumen</li>
+    <li id="pmIE">🌐 Internet Explorer</li>
+    <li id="pmNotepad">📝 Bloc de notas</li>
+    <li id="pmCalc">🧮 Calculadora</li>
+    <li id="pmPaint">🎨 Paint</li>
+    <li id="pmMinesweeper">💣 Buscaminas</li>
+    <li id="pmSolitario">💗 Solitario</li>
+    <li id="pmSudoku">🌸 Sudoku</li>
+    <li id="pmPinball">🚀 3D Pinball</li>
+    <li id="pmTetris">💗 Tetris Kawaii</li>
+    <li id="pmCalendar">🌷 Calendario</li>
+    <li id="pmDocs">📁 Mis documentos</li>
+  </ul>
+</div>
+
+<!-- Ventana "Buscar" -->
+<div class="win" id="searchWin" style="display:none; top:16%; left:32%; width:300px; z-index:260;">
+  <div class="titlebar">
+    <div class="ttl"><span class="ico"></span> Buscar: Archivos o carpetas</div>
+    <div class="winbtns"><button id="searchCloseBtn" title="Cerrar">✕</button></div>
+  </div>
+  <div class="win-body">
+    <div class="fieldrow"><label>Nombre:</label>
+      <input id="searchInput" class="inset" placeholder="ej. lunar, letargo…" style="flex:1;padding:3px 6px; font-family:'W98',Tahoma,sans-serif; font-size:12px; border:1px solid #808080;">
+    </div>
+    <div class="inset" id="searchResults" style="min-height:110px; max-height:200px; overflow-y:auto; padding:4px; font-size:12px;"></div>
+  </div>
+</div>
+
+<!-- Pantalla de apagado -->
+<div id="shutdownScreen">
+  <div id="shutdownMsg">Ahora puede apagar su equipo con tranquilidad.<br><span style="font-size:12px; opacity:.8;">(haz click en cualquier lugar para volver a MATILDE_OS)</span></div>
+</div>
+
+<!-- Diálogo real de "Apagar el sistema" con opciones -->
+<div id="shutdownDialog">
+  <div class="box">
+    <div class="titlebar">Apagar el sistema</div>
+    <div class="body">
+      <div class="hint">¿Qué desea que haga el equipo?</div>
+      <label class="opt" data-val="standby"><input type="radio" name="sdopt" value="standby"> Suspender</label>
+      <label class="opt sel" data-val="shutdown"><input type="radio" name="sdopt" value="shutdown" checked> Apagar el equipo</label>
+      <label class="opt" data-val="restart"><input type="radio" name="sdopt" value="restart"> Reiniciar el equipo</label>
+    </div>
+    <div class="btnrow">
+      <button class="btn98" id="sdOkBtn">Aceptar</button>
+      <button class="btn98" id="sdCancelBtn">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Pantalla de arranque / BIOS / reinicio -->
+<div id="bootScreen"></div>
+
+<!-- Confirmación antes de formatear -->
+<div id="formatConfirm">
+  <div class="box">
+    <div class="titlebar">🌸 ¿Refrescamos el mundo de Matilde? 🌸</div>
+    <div class="body">
+      <div class="ic">🎀💾🎀</div>
+      <div>Vamos a <b>borrar todo lo viejo</b> del disco C:\ y a instalar MATILDE_OS calentito, recién salido del horno.<br><br>Tranquila, tus discos, tus letras y tu brillo labial digital están a salvo. ¿Le damos con todo? (｡•̀ᴗ-)✧</div>
+    </div>
+    <div class="btnrow">
+      <button class="btn98" id="fmtYesBtn">💖 Sí, hazme brillar</button>
+      <button class="btn98" id="fmtNoBtn">Mejor no, gracias</button>
+    </div>
+  </div>
+</div>
+
+<!-- Formatear / Instalar (secuencia estilo DOS + Setup Win98) -->
+<div id="sysSetup">
+  <div id="setupDosView" style="display:none;"></div>
+  <div id="setupBox" style="display:none;">
+    <h2>✨ Instalando MATILDE_OS ✨</h2>
+    <div class="sub">Preparando la mejor versión de este mundo, con purpurina incluida…</div>
+    <div id="setupSteps"></div>
+    <div id="setupBarTrack"><div id="setupBarFill"></div></div>
+    <div id="setupPct">0%</div>
+  </div>
+</div>
+
+<!-- Notita del calendario kawaii -->
+<div id="kwNoteBox">
+  <div class="box">
+    <h3 id="kwNoteTitle">🌸 Notita 🌸</h3>
+    <textarea id="kwNoteArea" placeholder="Escribe algo lindo para este día..."></textarea>
+    <div class="btnrow">
+      <button class="kwPinkBtn" id="kwNoteSave">💖 Guardar</button>
+      <button class="kwPinkBtn secondary" id="kwNoteClose">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<div id="crtVignette"></div>
+<div id="crtLines"></div>
+<div id="chromaOverlay"></div>
+
+<!-- El orden de estos scripts es IMPORTANTE: son scripts clásicos (no módulos ES),
+     comparten el mismo scope global y muchos dependen de variables/funciones
+     definidas en los archivos anteriores. No cambiar el orden. -->
+<script src="js/01-core.js"></script>
+<script src="js/02-glitches.js"></script>
+<script src="js/03-windows-desktop.js"></script>
+<script src="js/04-system-panel.js"></script>
+<script src="js/05-apps-office.js"></script>
+<script src="js/06-games-cards.js"></script>
+<script src="js/07-games-arcade.js"></script>
+<script src="js/08-popups-effects.js"></script>
+<script src="js/09-webcam.js"></script>
+<script src="js/10-system-power.js"></script>
+</body>
+</html>
