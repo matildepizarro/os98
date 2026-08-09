@@ -2,7 +2,16 @@
    NUEVO: VENTANA "INTERNET EXPLORER" — EPK / sitio web de Matilde Pizarro
    ===================================================================== */
 let ieCounterVal = 1998 + Math.floor(Math.random()*4021);
+let ieWinRef = null;
 function openIEWindow(){
+  // mismo arreglo que en los juegos: evita ventanas duplicadas apiladas.
+  // Si la ventana existente estaba minimizada (display:none), también la
+  // restaura, porque si no, doble-clic en el ícono no parecería hacer nada.
+  if(ieWinRef && document.body.contains(ieWinRef)){
+    ieWinRef.style.display = '';
+    ieWinRef.style.zIndex = ++dragZ;
+    return;
+  }
   const win = document.createElement('div');
   win.className = 'winfloat iewin';
   win.style.top = '6%'; win.style.left = '50%'; win.style.transform = 'translateX(-50%)';
@@ -146,6 +155,7 @@ function openIEWindow(){
     </div>
   `;
   document.body.appendChild(win);
+  ieWinRef = win;
   makeDraggable(win);
   makeResizable(win, 240, 160);
 
@@ -159,7 +169,7 @@ function openIEWindow(){
   errWrap.appendChild(taskChip);
   taskChip.addEventListener('click', ()=>{ win.style.zIndex = ++dragZ; win.style.display=''; });
 
-  function close(){ win.remove(); taskChip.remove(); }
+  function close(){ win.remove(); taskChip.remove(); ieWinRef = null; }
   win.querySelector('.ieClose').addEventListener('click', close);
   win.querySelector('.ieMin').addEventListener('click', ()=>{ win.style.display = (win.style.display==='none')?'':'none'; });
   win.querySelector('.ieMax').addEventListener('click', ()=>{

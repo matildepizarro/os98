@@ -1,7 +1,22 @@
 /* =====================================================================
    NUEVO: SOLITARIO KAWAII ROSA — Klondike jugable de verdad 💗
    ===================================================================== */
+let solitarioWinRef = null;
 function openSolitarioWindow(){
+  // ARREGLO CLAVE: antes esta función creaba una ventana nueva cada vez
+  // que se llamaba, sin revisar si ya había una abierta. Como la posición
+  // (top/left) es siempre la misma, dos aperturas seguidas (doble clic
+  // accidental, doble tap en mobile, etc.) generaban DOS ventanas de
+  // Solitario apiladas exactamente en el mismo lugar, cada una con su
+  // propio mazo — por eso se veían cartas "de más" mezcladas y raras, y
+  // por eso "Nuevo juego" no las movía: solo reiniciaba la ventana de
+  // arriba, mientras la de abajo seguía con sus cartas viejas asomando.
+  // Ahora, si ya hay una ventana abierta, se trae al frente en vez de
+  // crear una nueva.
+  if(solitarioWinRef && document.body.contains(solitarioWinRef)){
+    solitarioWinRef.style.zIndex = ++dragZ;
+    return;
+  }
   const SUITS = [
     {sym:'♥', color:'#ff5c8a'},
     {sym:'♦', color:'#ff5c8a'},
@@ -38,11 +53,13 @@ function openSolitarioWindow(){
     </div>
   `;
   document.body.appendChild(win);
+  solitarioWinRef = win;
   makeDraggable(win);
   makeResizable(win, 480, 380);
   win.querySelector('.solClose').addEventListener('click', ()=>{
     cleanupDrag();
     win.remove();
+    solitarioWinRef = null;
   });
 
   const topEl = win.querySelector('.solTop');

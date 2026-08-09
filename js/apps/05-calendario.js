@@ -6,8 +6,16 @@ let kwViewYear, kwViewMonth; // mes que se está mostrando (0-11)
 const kwMonthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const kwDowNames = ['Do','Lu','Ma','Mi','Ju','Vi','Sá'];
 const kwCuteEmojis = ['🌸','💗','✨','🎀','🌷','🍥','⭐','🩷'];
+let calendarWinRef = null;
 
 function openCalendarWindow(){
+  // mismo arreglo que en los otros: además, esta ventana usa un id fijo
+  // ('calendarWin'), así que abrir dos a la vez también generaba IDs
+  // duplicados en el documento, lo cual es inválido en HTML.
+  if(calendarWinRef && document.body.contains(calendarWinRef)){
+    calendarWinRef.style.zIndex = ++dragZ;
+    return;
+  }
   const today = new Date();
   kwViewYear = today.getFullYear();
   kwViewMonth = today.getMonth();
@@ -33,9 +41,10 @@ function openCalendarWindow(){
     </div>
   `;
   document.body.appendChild(win);
+  calendarWinRef = win;
   makeDraggable(win);
   makeResizable(win, 240, 260);
-  win.querySelector('.kwClose').addEventListener('click', ()=> win.remove());
+  win.querySelector('.kwClose').addEventListener('click', ()=>{ win.remove(); calendarWinRef = null; });
   win.querySelector('.kwPrev').addEventListener('click', ()=>{
     kwViewMonth--; if(kwViewMonth < 0){ kwViewMonth = 11; kwViewYear--; }
     renderCalendar(win);

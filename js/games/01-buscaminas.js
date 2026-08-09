@@ -1,7 +1,13 @@
 /* =====================================================================
    NUEVO: BUSCAMINAS — jugable de verdad (clic izq. destapa, clic der. marca bandera)
    ===================================================================== */
+let minesweeperWinRef = null;
 function openMinesweeperWindow(){
+  // mismo arreglo que el Solitario: evita ventanas duplicadas apiladas
+  if(minesweeperWinRef && document.body.contains(minesweeperWinRef)){
+    minesweeperWinRef.style.zIndex = ++dragZ;
+    return;
+  }
   const ROWS = 9, COLS = 9, MINES = 10;
   const win = document.createElement('div');
   win.className = 'winfloat';
@@ -24,9 +30,10 @@ function openMinesweeperWindow(){
     </div>
   `;
   document.body.appendChild(win);
+  minesweeperWinRef = win;
   makeDraggable(win);
   makeResizable(win, 240, 200);
-  win.querySelector('.msClose').addEventListener('click', ()=> win.remove());
+  win.querySelector('.msClose').addEventListener('click', ()=>{ win.remove(); minesweeperWinRef = null; });
 
   const gridEl = win.querySelector('.msGrid');
   const mineCountEl = win.querySelector('.msMineCount');

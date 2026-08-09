@@ -2,7 +2,13 @@
    NUEVO: SUDOKU KAWAII ROSA — completo, con generador, validación,
    dificultades, notas, resaltado de errores y verificación de victoria 🌸
    ===================================================================== */
+let sudokuWinRef = null;
 function openSudokuWindow(){
+  // mismo arreglo que el Solitario: evita ventanas duplicadas apiladas
+  if(sudokuWinRef && document.body.contains(sudokuWinRef)){
+    sudokuWinRef.style.zIndex = ++dragZ;
+    return;
+  }
   const win = document.createElement('div');
   win.className = 'winfloat';
   win.style.top = '6%'; win.style.left = '18%'; win.style.width = '480px'; win.style.height = '560px';
@@ -35,9 +41,10 @@ function openSudokuWindow(){
     </div>
   `;
   document.body.appendChild(win);
+  sudokuWinRef = win;
   makeDraggable(win);
   makeResizable(win, 360, 460);
-  win.querySelector('.sudClose').addEventListener('click', ()=> win.remove());
+  win.querySelector('.sudClose').addEventListener('click', ()=>{ win.remove(); sudokuWinRef = null; });
 
   const gridEl = win.querySelector('.sudGrid');
   const padEl = win.querySelector('.sudPad');

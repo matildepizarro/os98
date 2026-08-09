@@ -1,7 +1,12 @@
 /* =====================================================================
    NUEVO: PAINT — lienzo real donde se puede dibujar con el mouse/dedo
    ===================================================================== */
+let paintWinRef = null;
 function openPaintWindow(){
+  if(paintWinRef && document.body.contains(paintWinRef)){
+    paintWinRef.style.zIndex = ++dragZ;
+    return;
+  }
   const win = document.createElement('div');
   win.className = 'winfloat';
   win.style.top = '10%'; win.style.left = '20%'; win.style.width = '420px'; win.style.height = '380px';
@@ -27,9 +32,10 @@ function openPaintWindow(){
     </div>
   `;
   document.body.appendChild(win);
+  paintWinRef = win;
   makeDraggable(win);
   makeResizable(win, 260, 220);
-  win.querySelector('.paintClose').addEventListener('click', ()=> win.remove());
+  win.querySelector('.paintClose').addEventListener('click', ()=>{ win.remove(); paintWinRef = null; });
 
   const canvas = win.querySelector('.paintCanvas');
   const ctx = canvas.getContext('2d');

@@ -1,7 +1,12 @@
 /* =====================================================================
    NUEVO: VENTANA DE AYUDA KAWAII
    ===================================================================== */
+let helpWinRef = null;
 function openHelpWindow(){
+  if(helpWinRef && document.body.contains(helpWinRef)){
+    helpWinRef.style.zIndex = ++dragZ;
+    return;
+  }
   const win = document.createElement('div');
   win.className = 'winfloat';
   win.style.top = '18%'; win.style.left = '38%'; win.style.width = '320px';
@@ -23,9 +28,10 @@ function openHelpWindow(){
     </div>
   `;
   document.body.appendChild(win);
+  helpWinRef = win;
   makeDraggable(win);
   makeResizable(win, 240, 160);
-  win.querySelectorAll('.hpClose').forEach(b=>b.addEventListener('click', ()=> win.remove()));
+  win.querySelectorAll('.hpClose').forEach(b=>b.addEventListener('click', ()=>{ win.remove(); helpWinRef = null; }));
 }
 document.getElementById('trayHelp').addEventListener('click', openHelpWindow);
 document.getElementById('smHelp').addEventListener('click', ()=>{ openHelpWindow(); startOpen=false; startMenu.style.display='none'; startBtn.classList.remove('active'); });

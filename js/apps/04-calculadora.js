@@ -1,7 +1,12 @@
 /* =====================================================================
    NUEVO: CALCULADORA — operativa (suma, resta, multiplica, divide, %, etc.)
    ===================================================================== */
+let calcWinRef = null;
 function openCalcWindow(){
+  if(calcWinRef && document.body.contains(calcWinRef)){
+    calcWinRef.style.zIndex = ++dragZ;
+    return;
+  }
   const win = document.createElement('div');
   win.className = 'winfloat';
   win.style.top = '20%'; win.style.left = '40%'; win.style.width = '210px';
@@ -38,9 +43,10 @@ function openCalcWindow(){
     </div>
   `;
   document.body.appendChild(win);
+  calcWinRef = win;
   makeDraggable(win);
   makeResizable(win, 180, 220);
-  win.querySelector('.calcClose').addEventListener('click', ()=> win.remove());
+  win.querySelector('.calcClose').addEventListener('click', ()=>{ win.remove(); calcWinRef = null; });
 
   const display = win.querySelector('.calcDisplay');
   let current = '0', stored = null, pendingOp = null, justEvaluated = false;
