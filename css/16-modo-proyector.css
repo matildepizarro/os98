@@ -1,0 +1,44 @@
+/* =====================================================================
+   MODULO CSS: css/16-modo-proyector.css
+   Modo "proyector chino barato" (refuerzo de contraste de texto)
+   ===================================================================== */
+  /* =========================================================
+     ===== MODO "PROYECTOR CHINO BARATO" =====
+     Refuerza el grosor y contraste de TODO el texto para que
+     se lea bien en proyectores baratos de baja resolución/brillo.
+     ========================================================= */
+  /* =========================================================
+     ===== MODO "PROYECTOR CHINO BARATO" (v3, simplificado) =====
+     Las sombras apiladas hacían que el texto de color (como las
+     etiquetas azules) se rellenara y se viera como un bloque sólido
+     en vez de letras. Se saca todo el text-shadow para texto normal
+     y se deja SOLO negrita + tamaño más grande + más espaciado,
+     que es lo que realmente ayuda a leer en un proyector barato.
+     ========================================================= */
+  *{
+    font-weight: 700 !important;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body{ font-size: 14px !important; }
+  .menubar span, .fieldrow, .statusbar div, .win-body, li, a, label,
+  select, option, input, button, .btn98, .poster-sub, .virustext, .errtext, td, th{
+    font-size: max(13px, 1em) !important;
+    letter-spacing: 0.2px;
+  }
+  select, option, input, button, .btn98{ color:#000 !important; }
+  .fieldrow label{ width:auto !important; min-width:110px; }
+
+  /* Solo el título grande lleva contorno, porque es un bloque de texto
+     aislado (no se pega con otras palabras chicas alrededor) */
+  .poster-title{
+    -webkit-text-stroke: 0.5px #000080;
+    font-size: 28px !important;
+    letter-spacing: 1.5px !important;
+  }
+  /* Igual con el texto de la barra de título de las ventanas, que va
+     sobre un degradé azul y necesita algo de refuerzo, pero SOLO ahí */
+  .titlebar .ttl, #startBtn{
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.7) !important;
+  }
+  .marquee-free{ color:#39ff14 !important; font-weight:700 !important; font-size:13px !important; }

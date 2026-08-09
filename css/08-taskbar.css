@@ -1,0 +1,258 @@
+/* =====================================================================
+   MODULO CSS: css/08-taskbar.css
+   Barra de tareas
+   ===================================================================== */
+  /* ================= TASKBAR ================= */
+  #taskbar{
+    position:fixed; left:0; right:0; bottom:0; height:34px;
+    background:#c0c0c0; border-top:2px solid #fff;
+    display:flex; align-items:center; padding:2px 3px; gap:4px;
+    z-index:1000;
+  }
+  #startBtn{
+    display:flex; align-items:center; gap:4px;
+    background:#c0c0c0; border:2px outset #fff; padding:3px 8px;
+    font-weight:bold; font-size:13px; cursor:pointer;
+  }
+  #startBtn.active, #startBtn:active{ border:2px inset #fff; }
+  #startBtn .flag{
+    width:16px; height:16px;
+    background: conic-gradient(from 0deg,#ff0000 0 90deg,#7cbb00 90deg 180deg,#00a4ef 180deg 270deg,#ffb900 270deg 360deg);
+  }
+  .tasksep{ width:2px; align-self:stretch; border-left:1px solid #808080; border-right:1px solid #fff; margin:2px 1px; }
+  .taskitem{
+    background:#c0c0c0; border:2px inset #fff; font-size:12px; padding:3px 10px;
+    display:flex; align-items:center; gap:6px; max-width:180px; overflow:hidden; white-space:nowrap;
+  }
+  .taskitem.blink{ animation: tblink .5s steps(1) infinite; }
+  @keyframes tblink{ 50%{ background:#000080; color:#fff; } }
+  #clock{ margin-left:auto; border:1px inset #fff; padding:4px 10px; font-size:12px; background:#c0c0c0; }
+
+  /* start menu */
+  #startMenu{
+    position:fixed; left:2px; bottom:36px; width:200px;
+    background:#c0c0c0; border:2px outset #fff; z-index:900; display:none;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  }
+  #startMenu .banner{
+    writing-mode: vertical-rl; transform:rotate(180deg);
+    background: linear-gradient(#000080,#1084d0); color:#fff; font-weight:bold;
+    position:absolute; left:0; top:0; bottom:0; width:22px;
+    display:flex; align-items:center; justify-content:center; font-size:14px; letter-spacing:2px;
+  }
+  #startMenu ul{ list-style:none; margin:0; padding:4px 4px 4px 26px; }
+  #startMenu li{ padding:6px 8px; font-size:12px; cursor:default; }
+  #startMenu li:hover{ background:#000080; color:#fff; }
+
+  /* submenú "Programas" */
+  #programsMenu{
+    position:fixed; left:200px; bottom:36px; width:190px;
+    background:#c0c0c0; border:2px outset #fff; z-index:901; display:none;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  }
+  #programsMenu ul{ list-style:none; margin:0; padding:4px; }
+  #programsMenu li{ padding:6px 8px; font-size:12px; cursor:default; }
+  #programsMenu li:hover{ background:#000080; color:#fff; }
+
+  /* ventana de resultados de "Buscar" */
+  #searchResults{ background:#fff; }
+  .searchResultItem{ padding:4px 6px; cursor:pointer; }
+  .searchResultItem:hover{ background:#000080; color:#fff; }
+  .searchNoResults{ color:#606060; padding:4px 6px; font-style:italic; }
+
+  /* pantalla de "Apagar el sistema" */
+  #shutdownScreen{
+    position:fixed; inset:0; background:#000; color:#fff;
+    display:none; align-items:center; justify-content:center;
+    text-align:center; font-size:15px; z-index:5000; cursor:pointer;
+    padding: 20px;
+  }
+  #shutdownMsg{ max-width:420px; line-height:1.6; }
+
+  /* ---------- Diálogo real "Apagar el sistema" (con opciones) ---------- */
+  #shutdownDialog{
+    position:fixed; inset:0; background:rgba(0,0,0,0.35); z-index:5100;
+    display:none; align-items:center; justify-content:center;
+  }
+  #shutdownDialog .box{
+    width:320px; background:#c0c0c0; border:2px outset #fff;
+    box-shadow:2px 2px 6px rgba(0,0,0,0.6); font-size:12px;
+  }
+  #shutdownDialog .titlebar{
+    background:linear-gradient(90deg,#000080,#1084d0); color:#fff;
+    font-weight:bold; padding:3px 6px; font-size:13px;
+  }
+  #shutdownDialog .body{ padding:14px 16px; }
+  #shutdownDialog .opt{ display:flex; align-items:center; gap:8px; padding:5px 0; cursor:pointer; }
+  #shutdownDialog .opt input{ cursor:pointer; }
+  #shutdownDialog .opt.sel{ background:#000080; color:#fff; }
+  #shutdownDialog .hint{ margin:8px 0 4px; color:#404040; }
+  #shutdownDialog .btnrow{ display:flex; justify-content:flex-end; gap:8px; padding:10px 16px 14px; }
+
+  /* ---------- Pantalla de arranque / BIOS / reinicio ---------- */
+  #bootScreen{
+    position:fixed; inset:0; background:#000; color:#aaa; z-index:6000;
+    display:none; flex-direction:column; font-family:'Consolas', 'Courier New', monospace;
+    font-size:13px; padding:22px 26px; white-space:pre-wrap; line-height:1.5;
+  }
+  #bootScreen.logo-mode{
+    align-items:center; justify-content:center;
+    background: linear-gradient(135deg,#ffd6ec 0%,#ffc2e0 25%,#d9c2ff 60%,#c2e0ff 100%);
+    color:#5b2a86;
+    font-family:'W98',Tahoma,sans-serif;
+    overflow:hidden; width:100%; height:100%;
+  }
+  #bootScreen.logo-mode::before{
+    content:"✨ 🌸 💗 ⭐ 🎀 ✨ 💫 🌸 ⭐ 💗 🎀 ✨";
+    position:absolute; inset:0; display:flex; flex-wrap:wrap; align-content:space-around;
+    justify-content:space-around; font-size:22px; opacity:.35; padding:10px;
+    pointer-events:none; animation: sparkleDrift 6s ease-in-out infinite alternate;
+  }
+  @keyframes sparkleDrift{ 0%{ transform:translateY(0);} 100%{ transform:translateY(-12px);} }
+  #bootLogoBox{ text-align:center; position:relative; z-index:2; }
+  #bootLogoBox .w98logo{
+    font-family: Impact,'Arial Black',Tahoma,sans-serif; font-size:36px; letter-spacing:1px;
+    color:#fff; text-shadow: 2px 2px 0 #ff8fc7, -1px -1px 0 #b083ff, 0 0 18px rgba(255,255,255,.8);
+  }
+  #bootLogoBox .w98logo::before{ content:"(๑˃ᴗ˂)ﻭ "; }
+  #bootLogoBox .w98logo::after{ content:" ੈ✩‧₊"; }
+  #bootLogoBox .w98sub{
+    font-size:13px; margin-top:4px; color:#6b3fa0; font-weight:bold;
+    min-height:16px;
+  }
+  #bootLogoBox .barTrack{
+    width:240px; height:16px; margin:22px auto 0; background:#fff0fa;
+    border:2px solid #ff9fd6; border-radius:10px; padding:2px; box-shadow: 0 2px 6px rgba(150,80,180,.3);
+  }
+  #bootLogoBox .barFill{
+    height:100%; width:0%; border-radius:8px;
+    background: repeating-linear-gradient(90deg,#ff9fd6 0 10px,#c9a4ff 10px 20px);
+    transition: width .25s linear;
+  }
+
+  /* ---------- Formatear / Instalar el sistema (setup estilo Win98) ---------- */
+  #sysSetup{
+    position:fixed; inset:0; z-index:6500; display:none;
+    background:#000; color:#e0e0e0; font-family:'Consolas','Courier New', monospace;
+    font-size:14px;
+  }
+  #sysSetup.mode-dos{ padding:24px 30px; white-space:pre-wrap; line-height:1.5; }
+  #sysSetup.mode-setup{
+    background: linear-gradient(#000080,#1084d0);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'W98',Tahoma,sans-serif;
+  }
+  #setupBox{ width:min(560px,90vw); color:#fff; }
+  #setupBox h2{ margin:0 0 4px; font-size:20px; }
+  #setupBox .sub{ font-size:12px; opacity:.9; margin-bottom:18px; }
+  #setupSteps{ font-size:12px; margin-bottom:14px; min-height:120px; }
+  #setupSteps div{ padding:2px 0; opacity:.55; }
+  #setupSteps div.active{ opacity:1; font-weight:bold; }
+  #setupSteps div.done::before{ content:"💗 "; color:#fff; }
+  #setupSteps div.active::before{ content:"✨ "; }
+  #setupBarTrack{
+    width:100%; height:18px; background:#fff0fa; border:2px solid #ff9fd6; border-radius:10px; padding:2px;
+  }
+  #setupBarFill{
+    height:100%; width:0%; border-radius:8px;
+    background:repeating-linear-gradient(90deg,#ff9fd6 0 9px,#ffd6ec 9px 10px);
+    transition:width .3s linear;
+  }
+  #setupPct{ text-align:right; font-size:11px; margin-top:4px; }
+  #sysSetup.mode-setup{
+    background: linear-gradient(135deg,#ffd6ec,#c9a4ff) !important;
+  }
+  #sysSetup.mode-dos{
+    background: linear-gradient(160deg,#2a1338,#3d1f52) !important; color:#ffd6ec !important;
+  }
+  #formatConfirm{
+    position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:6400;
+    display:none; align-items:center; justify-content:center;
+  }
+  #formatConfirm .box{
+    width:340px; background:linear-gradient(160deg,#fff0fa,#ffe0f2);
+    border:3px solid #ff9fd6; border-radius:14px; font-size:12px;
+    box-shadow:2px 2px 12px rgba(150,80,180,.5); overflow:hidden;
+  }
+  #formatConfirm .titlebar{
+    background:linear-gradient(90deg,#ff8fc7,#c9a4ff); color:#4a1a5c; font-weight:bold;
+    padding:6px 8px; font-size:13px; text-align:center;
+  }
+  #formatConfirm .body{ padding:14px 16px; display:flex; gap:10px; align-items:flex-start; color:#5c2a72; }
+  #formatConfirm .body .ic{ font-size:22px; letter-spacing:2px; }
+  #formatConfirm .btnrow{ display:flex; justify-content:flex-end; gap:8px; padding:0 16px 14px; }
+  #formatConfirm .btnrow .btn98{
+    background:#ffd6ec; border:2px outset #ffb6de; border-radius:8px; color:#7a1f5c;
+  }
+
+  /* ---------- Calendario rosado / kawaii ---------- */
+  #calendarWin .titlebar{
+    background: linear-gradient(90deg,#ff8fc7,#ffc1e3) !important;
+    color:#6b1145 !important; text-shadow:none;
+  }
+  #calendarWin .win-body{
+    background: linear-gradient(#fff0f7,#ffe4f1);
+    border-color:#ffb3da;
+  }
+  .kawaiiHead{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:8px; gap:6px;
+  }
+  .kawaiiHead .kwTitle{
+    font-weight:bold; font-size:14px; color:#c2237a; text-align:center; flex:1;
+    font-family:'Comic Sans MS','Comic Sans','W98',Tahoma,sans-serif;
+  }
+  .kwNavBtn{
+    background:#ffd3ea; border:2px outset #ffc1e3; color:#c2237a; font-weight:bold;
+    border-radius:8px; width:26px; height:26px; cursor:pointer; font-size:13px;
+  }
+  .kwNavBtn:active{ border-style:inset; }
+  .kwGrid{
+    display:grid; grid-template-columns:repeat(7,1fr); gap:3px; font-size:11px;
+  }
+  .kwGrid .kwDow{
+    text-align:center; font-weight:bold; color:#e34e9b; padding:3px 0;
+    font-family:'Comic Sans MS','Comic Sans','W98',Tahoma,sans-serif;
+  }
+  .kwDay{
+    background:#fff; border:1px solid #ffcfe6; border-radius:8px;
+    min-height:34px; text-align:center; padding:3px 2px; color:#7a3a5c;
+    cursor:pointer; position:relative;
+  }
+  .kwDay:hover{ background:#ffe9f4; }
+  .kwDay.otherMonth{ opacity:0.35; }
+  .kwDay.today{
+    background:#ffb6da; border-color:#ff6fb0; color:#6b1145; font-weight:bold;
+    box-shadow:0 0 0 2px #ff8fc7 inset;
+  }
+  .kwDay .kwNum{ display:block; }
+  .kwDay .kwDot{ font-size:9px; margin-top:1px; }
+  .kwDay.hasNote::after{
+    content:"💗"; position:absolute; top:1px; right:2px; font-size:8px;
+  }
+  .kwFooter{
+    margin-top:8px; text-align:center; font-size:10px; color:#c2237a;
+    font-family:'Comic Sans MS','Comic Sans','W98',Tahoma,sans-serif;
+  }
+  #kwNoteBox{
+    position:fixed; inset:0; background:rgba(255,182,218,0.35); z-index:5800;
+    display:none; align-items:center; justify-content:center;
+  }
+  #kwNoteBox .box{
+    width:260px; background:#fff0f7; border:3px solid #ff9dcc; border-radius:14px;
+    box-shadow:3px 3px 0 #ffb6da; padding:14px; font-family:'Comic Sans MS','Comic Sans','W98',Tahoma,sans-serif;
+  }
+  #kwNoteBox h3{ margin:0 0 6px; color:#c2237a; font-size:14px; text-align:center; }
+  #kwNoteBox textarea{
+    width:100%; height:70px; border:2px solid #ffcfe6; border-radius:8px; resize:none;
+    font-family:'Comic Sans MS','Comic Sans','W98',Tahoma,sans-serif; font-size:12px;
+    padding:6px; box-sizing:border-box; outline:none; color:#7a3a5c;
+  }
+  #kwNoteBox .btnrow{ display:flex; justify-content:center; gap:8px; margin-top:10px; }
+  .kwPinkBtn{
+    background:#ff9dcc; border:none; border-radius:10px; color:#fff; font-weight:bold;
+    padding:5px 14px; cursor:pointer; font-family:'Comic Sans MS','Comic Sans','W98',Tahoma,sans-serif;
+    font-size:11px;
+  }
+  .kwPinkBtn:active{ transform:translateY(1px); }
+  .kwPinkBtn.secondary{ background:#fff; color:#c2237a; border:2px solid #ff9dcc; }

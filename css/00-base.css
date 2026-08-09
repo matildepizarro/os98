@@ -1,0 +1,21 @@
+/* =====================================================================
+   MODULO CSS: css/00-base.css
+   Reset, fuente W98, fondo del sistema, selección de texto
+   ===================================================================== */
+
+  @font-face{
+    font-family:'W98';
+    src: local('Tahoma'), local('MS Sans Serif'), local('Microsoft Sans Serif');
+  }
+  *{ box-sizing:border-box; }
+  html,body{
+    margin:0; padding:0; width:100%; height:100%;
+    background: #008080;
+    background-image: radial-gradient(#00767a 1px, transparent 1px);
+    background-size: 4px 4px;
+    font-family: 'W98', Tahoma, 'Segoe UI', Arial, sans-serif;
+    overflow:hidden;
+    cursor: default;
+  }
+  ::selection{ background:#000080; color:#fff; }
+  body.wait, body.wait *{ cursor: wait !important; }

@@ -1,0 +1,16 @@
+/* =====================================================================
+   MODULO CSS: css/13-mis-documentos.css
+   Ventana "Mis documentos" (carpeta)
+   ===================================================================== */
+  /* ================= NUEVO: VENTANA "MIS DOCUMENTOS" (carpeta) ================= */
+  .folderwin{ width: min(360px, 92vw); }
+  .folder-grid{
+    display:flex; flex-wrap:wrap; gap:6px; padding:10px; background:#fff;
+    margin:6px; border:1px solid #808080; border-top-color:#404040; border-left-color:#404040;
+    flex:1 1 auto; min-height:0; overflow-y:auto;
+  }
+  .folder-item{
+    width:70px; text-align:center; font-size:10px; cursor:pointer; padding:4px; color:#000;
+  }
+  .folder-item:hover{ background:#000080; color:#fff; }
+  .folder-item .fglyph{ font-size:22px; }

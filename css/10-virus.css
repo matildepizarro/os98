@@ -1,0 +1,30 @@
+/* =====================================================================
+   MODULO CSS: css/10-virus.css
+   Virus chistoso
+   ===================================================================== */
+  /* ================= VIRUS CHISTOSO ================= */
+  .viruswin{ position:absolute; width: 360px; z-index: 540; }
+  .viruswin .titlebar{ background: linear-gradient(90deg,#800000,#c00000); }
+  .virusbody{ display:flex; gap:10px; align-items:flex-start; padding:14px 10px; }
+  .virusbody .icovirus{
+    width:34px; height:34px; flex-shrink:0;
+    background:#000; border-radius:50%; position:relative;
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; border:2px solid #ff0000;
+    animation: buglegs 0.4s steps(2) infinite;
+  }
+  @keyframes buglegs{ 50%{ transform:rotate(-6deg) scale(1.05); } }
+  .virustext{ font-size:13px; line-height:1.5; font-family:'W98',Tahoma,sans-serif; }
+  .virustext b{ color:#800000; }
+  .virusbtnrow{ text-align:center; padding: 6px 0 12px; display:flex; gap:8px; justify-content:center; }
+
+  .toast98{
+    position:fixed; bottom:40px; right:10px; z-index:800;
+    background:#ffffe1; border:1px solid #000; padding:8px 10px; font-size:12px;
+    max-width:220px; box-shadow: 2px 2px 3px rgba(0,0,0,.4);
+  }
+
+  @media (max-width:480px){
+    .fieldrow label{ width:84px; font-size:11px; }
+    .poster-title{ font-size:20px; }
+  }

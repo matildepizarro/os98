@@ -1,0 +1,92 @@
+/* =====================================================================
+   MODULO CSS: css/09-fx-layers.css
+   Capas globales de efectos (FX)
+   ===================================================================== */
+  /* ================= GLOBAL FX LAYERS ================= */
+  #bsod{
+    position:fixed; inset:0; background:#0000AA; color:#fff;
+    z-index: 5000; display:none;
+    font-family: 'Consolas', monospace; font-size:16px; line-height:1.5;
+    padding: 60px; white-space:pre-wrap;
+  }
+  #bsod b{ background:#fff; color:#0000AA; padding:0 4px; }
+
+  #screenflash{
+    position:fixed; inset:0; z-index:4000; pointer-events:none;
+    background:#fff; opacity:0;
+  }
+  #screenflash.hit{ animation: flashfx .12s ease-out; }
+  @keyframes flashfx{ 0%{opacity:.8;} 100%{opacity:0;} }
+
+  #screensaver{
+    position:fixed; inset:0; background:#000; z-index:4500; display:none;
+  }
+  #ssPipe{
+    position:absolute; width:120px; height:14px; background:#00ff00;
+    box-shadow:0 0 10px #00ff00;
+  }
+
+  #glitchOverlay{
+    position:fixed; inset:0; z-index:3000; pointer-events:none; opacity:0;
+    background: repeating-linear-gradient(0deg, rgba(255,0,255,0.08) 0 2px, transparent 2px 4px);
+    mix-blend-mode: difference;
+  }
+  #glitchOverlay.on{ opacity:1; }
+
+  /* ---- ventana del afiche con glitch constante (El Pimentón) ---- */
+  #posterWin{ display:flex; flex-direction:column; }
+  #posterBody{ flex:1; display:flex; flex-direction:column; min-height:0; }
+  .poster-glitch-frame{ position:relative; overflow:hidden; background:#000; flex:1; min-height:180px; }
+  .poster-glitch-frame img{
+    display:block; width:100%; height:100%; object-fit:contain; position:relative; z-index:1;
+    animation: posterGlitchShake 2.4s infinite steps(2,end);
+  }
+  .poster-glitch-frame::before{
+    content:''; position:absolute; inset:0; pointer-events:none; z-index:2; mix-blend-mode:screen;
+    background:linear-gradient(90deg, rgba(255,0,120,.28), transparent 30%, transparent 70%, rgba(0,220,255,.28));
+    animation: posterGlitchSplit 2.1s infinite steps(1,end);
+  }
+  .poster-glitch-frame::after{
+    content:''; position:absolute; inset:0; pointer-events:none; z-index:3; mix-blend-mode:screen; opacity:.5;
+    background:repeating-linear-gradient(to bottom, rgba(255,0,150,.14) 0 2px, rgba(0,255,255,.12) 2px 4px, transparent 4px 6px);
+    animation: posterGlitchBars 1.7s infinite steps(6,end);
+  }
+  @keyframes posterGlitchShake{
+    0%,100%{ transform:translate(0,0); filter:none; }
+    4%{ transform:translate(-3px,1px); filter:hue-rotate(30deg) saturate(1.6); }
+    8%{ transform:translate(2px,-2px) skewX(1deg); filter:hue-rotate(-40deg) contrast(1.3); }
+    12%{ transform:translate(-1px,2px); filter:none; }
+    30%{ transform:translate(0,0); filter:none; }
+    33%{ transform:translate(4px,-1px) skewX(-2deg); filter:hue-rotate(90deg) saturate(2); }
+    36%{ transform:translate(-2px,1px); filter:none; }
+    60%{ transform:translate(0,0); filter:none; }
+    63%{ transform:translate(-3px,-1px); filter:invert(.15) hue-rotate(180deg); }
+    66%{ transform:translate(2px,2px); filter:none; }
+    85%{ transform:translate(0,0); filter:none; }
+    88%{ transform:translate(3px,1px) skewX(2deg); filter:hue-rotate(-60deg) saturate(1.8); }
+    91%{ transform:translate(-2px,-1px); filter:none; }
+  }
+  @keyframes posterGlitchSplit{
+    0%,100%{ opacity:0; }
+    5%{ opacity:.55; clip-path: inset(10% 0 60% 0); }
+    8%{ opacity:0; }
+    45%{ opacity:.4; clip-path: inset(50% 0 20% 0); }
+    48%{ opacity:0; }
+    70%{ opacity:.5; clip-path: inset(20% 0 70% 0); }
+    73%{ opacity:0; }
+  }
+  @keyframes posterGlitchBars{
+    0%{ transform:translateY(0); }
+    20%{ transform:translateY(4px); }
+    40%{ transform:translateY(-6px); }
+    60%{ transform:translateY(2px); }
+    80%{ transform:translateY(-3px); }
+    100%{ transform:translateY(0); }
+  }
+
+  #dialogBox{
+    position:fixed; z-index:520; display:none;
+  }
+
+  .errwin.videowin{ width: 300px; }
+  .errwin.videowin video{ width:100%; display:block; }

@@ -1,0 +1,29 @@
+/* =====================================================================
+   MODULO CSS: css/07-clippy.css
+   Clippy
+   ===================================================================== */
+  /* ================= CLIPPY ================= */
+  #clippy{
+    position:fixed; bottom:44px; right:24px; z-index:600;
+    width:150px; display:none;
+    font-size:12px;
+  }
+  #clippy .bubble{
+    background:#fff; border:1px solid #000; border-radius:8px; padding:8px;
+    position:relative; margin-bottom:6px;
+  }
+  #clippy .bubble:after{
+    content:""; position:absolute; bottom:-8px; right:24px;
+    border:8px solid transparent; border-top-color:#fff;
+  }
+  #clippy .face{
+    width:60px; height:60px; margin-left:auto;
+    background: #ffe066; border:3px solid #333; border-radius:50% 50% 50% 0;
+    position:relative;
+  }
+  #clippy .face:before, #clippy .face:after{
+    content:""; position:absolute; width:8px; height:8px; background:#000; border-radius:50%;
+    top:20px;
+  }
+  #clippy .face:before{ left:14px; }
+  #clippy .face:after{ left:32px; }

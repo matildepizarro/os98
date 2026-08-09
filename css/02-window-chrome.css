@@ -1,0 +1,79 @@
+/* =====================================================================
+   MODULO CSS: css/02-window-chrome.css
+   Marco de ventanas estilo Win98 (titlebar, botones, resize)
+   ===================================================================== */
+  /* ================= WINDOW CHROME ================= */
+  .win{
+    position:absolute;
+    background:#c0c0c0;
+    border: 2px solid #fff;
+    border-right-color:#000; border-bottom-color:#000;
+    box-shadow: 1px 1px 0 #000, inset -1px -1px 0 #808080, inset 1px 1px 0 #dfdfdf;
+    padding: 2px;
+    min-width: 220px;
+    /* clave del arreglo: la ventana ahora es un contenedor flex vertical,
+       así que al cambiar su tamaño el contenido interno se reacomoda
+       en vez de desbordarse y "bugearse" fuera del marco */
+    display:flex; flex-direction:column;
+    overflow:hidden;
+  }
+  .win > .titlebar,
+  .win > .menubar,
+  .win > .statusbar,
+  .winfloat > .titlebar,
+  .winfloat > .menubar,
+  .winfloat > .statusbar{ flex:0 0 auto; }
+  .titlebar{
+    background: linear-gradient(90deg,#000080,#1084d0);
+    color:#fff; font-weight:bold; font-size:13px;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 3px 3px 3px 6px;
+    cursor: move;
+  }
+  .titlebar .ttl{ display:flex; align-items:center; gap:6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .titlebar .ttl .ico{ width:16px; height:16px; background:#fff; display:inline-block; }
+  .winbtns{ display:flex; gap:2px; }
+  .winbtns button{
+    width:16px; height:14px; background:#c0c0c0;
+    border:1px outset #fff; font-size:10px; line-height:10px;
+    font-family:'W98', Tahoma, sans-serif; font-weight:bold; padding:0; cursor:pointer;
+    color:#000;
+  }
+  .winbtns button:active{ border:1px inset #fff; }
+  .resize-handle{
+    position:absolute; right:1px; bottom:1px; width:14px; height:14px;
+    cursor:nwse-resize; z-index:20;
+    background:repeating-linear-gradient(135deg,#808080 0 2px,transparent 2px 4px);
+  }
+  .menubar{
+    display:flex; gap:14px; font-size:12px; padding:3px 8px; background:#c0c0c0;
+    border-bottom:1px solid #808080;
+  }
+  .menubar span{ cursor:default; }
+  .menubar span:hover{ background:#000080; color:#fff; padding:0 2px; }
+
+  .win-body{
+    background:#c0c0c0;
+    border: 1px solid #808080;
+    border-top-color:#404040; border-left-color:#404040;
+    margin: 2px;
+    padding: 10px;
+    /* deja que el cuerpo crezca/encoja junto con la ventana, y si el
+       contenido no entra, que aparezca scroll interno en vez de
+       desbordar y romper el layout */
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+  }
+  .inset{
+    background:#fff;
+    border: 2px solid #808080;
+    border-right-color:#fff; border-bottom-color:#fff;
+    padding: 2px;
+  }
+  .btn98{
+    background:#c0c0c0; border:2px outset #fff; color:#000;
+    font-family:'W98',Tahoma,sans-serif; font-size:12px;
+    padding: 4px 12px; cursor:pointer;
+  }
+  .btn98:active{ border:2px inset #fff; }
