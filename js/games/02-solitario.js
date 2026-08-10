@@ -93,6 +93,25 @@ function openSolitarioWindow(){
     foundations = [[],[],[],[]];
     selection = null;
     msgEl.textContent = '';
+
+    // ARREGLO DEFINITIVO: "Nuevo juego" nunca limpiaba las cartas fantasma
+    // (.solDragGhost) que quedaban pegadas directamente al <body> cuando un
+    // arrastre se interrumpía a medio camino. render() solo limpia el
+    // tablero (tableauEl/topEl), pero esas cartas fantasma NO viven ahí
+    // adentro, viven sueltas en el body, así que nunca desaparecían por
+    // más veces que se apretara "Nuevo juego". Se limpia todo el estado de
+    // arrastre acá mismo (sin llamar a cleanupDrag(), que dispara su
+    // propio render() — eso rompería la primera apertura de la ventana,
+    // cuando el tablero todavía no existe) y se deja que el render() de
+    // más abajo, ya con el mazo nuevo listo, sea el único que dibuje.
+    dragCtx = null;
+    document.removeEventListener('mousemove', onPointerMove);
+    document.removeEventListener('mouseup', onPointerUp);
+    document.removeEventListener('touchmove', onPointerMove);
+    document.removeEventListener('touchend', onPointerUp);
+    document.removeEventListener('touchcancel', onPointerCancel);
+    document.querySelectorAll('.solDragGhost').forEach(g=> g.remove());
+
     render();
   }
 
@@ -535,6 +554,15 @@ function openSolitarioWindow(){
   }
 
   function render(){
+    // ARREGLO DEFENSIVO EXTRA: si no hay ningún arrastre activo en este
+    // momento (dragCtx === null) pero por algún motivo quedó una carta
+    // fantasma huérfana en el documento, se elimina acá mismo. Como
+    // render() se llama constantemente (después de cada movimiento, cada
+    // clic, cada selección), esto actúa como una limpieza automática
+    // continua, no solo al apretar "Nuevo juego".
+    if(!dragCtx){
+      document.querySelectorAll('.solDragGhost').forEach(g=> g.remove());
+    }
     topEl.innerHTML = '';
     tableauEl.innerHTML = '';
 
