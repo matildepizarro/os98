@@ -361,7 +361,18 @@ function openSolitarioWindow(){
       return;
     }
     const cards = getMovableCardsFrom(source);
-    if(!cards || cards.length === 0) return;
+    if(!cards || cards.length === 0){
+      // ARREGLO REAL (bug del "no se puede poner un Rey en una columna
+      // vacía"): acá no hay ninguna carta para LEVANTAR (por ejemplo, una
+      // columna vacía del tablero), pero igual puede ser el DESTINO de una
+      // carta ya seleccionada — el movimiento clásico de mover un Rey a un
+      // hueco vacío. Antes esto simplemente hacía "return" sin más, así
+      // que el clic quedaba sin efecto y ese movimiento era imposible por
+      // clic (solo funcionaba arrastrando la carta físicamente encima).
+      // Ahora se delega a handleClick, que ya sabía manejar bien este caso.
+      handleClick(source);
+      return;
+    }
     if(dragCtx) cleanupDrag(); // por seguridad, nunca dos arrastres a la vez
     const p = e.touches ? e.touches[0] : e;
     dragCtx = { source, cards, startX:p.clientX, startY:p.clientY, moved:false, ghosts:[] };
