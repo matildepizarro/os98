@@ -245,10 +245,12 @@ function makeIconDraggable(icon){
     if(e.type === 'mousedown' && e.button !== 0) return;
     const isTouch = e.type === 'touchstart';
     const point = isTouch ? e.touches[0] : e;
-    toAbsolute();
+    // OJO: ya NO se llama a toAbsolute() acá. Antes se sacaba el ícono
+    // del flujo flex en cada click (aunque no se arrastrara), lo que
+    // hacía que los demás íconos se reacomodaran y se superpusieran
+    // con el que se acababa de "soltar" del flex. Ahora solo se saca
+    // del flujo cuando realmente se detecta un arrastre (ver onMove).
     dragging = true; moved = false;
-    icon.classList.add('dragging');
-    icon.style.zIndex = 5;
     const rect = icon.getBoundingClientRect();
     offX = point.clientX - rect.left;
     offY = point.clientY - rect.top;
@@ -261,15 +263,20 @@ function makeIconDraggable(icon){
     if(!dragging) return;
     if(e.type === 'touchmove') e.preventDefault();
     const point = e.type === 'touchmove' ? e.touches[0] : e;
+    if(!moved){
+      // Recién ahora, al detectar el primer movimiento real, sacamos
+      // el ícono del flex y lo pasamos a absolute.
+      toAbsolute();
+      moved = true;
+      icon.classList.add('dragging');
+      icon.style.zIndex = 5;
+    }
     const desk = document.getElementById('desktop');
     const deskRect = desk.getBoundingClientRect();
     let nx = point.clientX - deskRect.left - offX;
     let ny = point.clientY - deskRect.top - offY;
     nx = Math.max(0, Math.min(deskRect.width - icon.offsetWidth, nx));
     ny = Math.max(0, Math.min(deskRect.height - icon.offsetHeight, ny));
-    if(Math.abs(nx - parseFloat(icon.style.left || 0)) > 3 || Math.abs(ny - parseFloat(icon.style.top || 0)) > 3){
-      moved = true;
-    }
     icon.style.left = nx + 'px';
     icon.style.top = ny + 'px';
   }
