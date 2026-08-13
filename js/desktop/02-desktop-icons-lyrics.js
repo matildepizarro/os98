@@ -31,8 +31,9 @@ SONGS.forEach((song, idx)=>{
 
 /* ---- Mover libremente los íconos del escritorio (arrastrar y soltar) ---- */
 let desktopIconJustDragged = false;
+const DRAG_THRESHOLD = 6; // px: por debajo de esto, es un click con temblor de mano, no un arrastre
 function makeIconDraggable(icon){
-  let dragging = false, moved = false, offX = 0, offY = 0;
+  let dragging = false, moved = false, offX = 0, offY = 0, startX = 0, startY = 0;
 
   function toAbsolute(){
     const desk = document.getElementById('desktop');
@@ -55,8 +56,12 @@ function makeIconDraggable(icon){
     // arrastrara, lo que hacía que los demás íconos se reacomodaran y
     // terminaran superpuestos con el que se acababa de "soltar". Ahora
     // solo se convierte a posición absoluta cuando hay un arrastre real
-    // (ver onMove, primer movimiento detectado).
+    // (ver onMove, que además exige superar DRAG_THRESHOLD px de
+    // movimiento real — un click con mouse o dedo casi siempre tiene
+    // 1-3px de temblor de la mano, y sin este umbral ESE temblor ya
+    // alcanzaba para disparar la conversión y correr los íconos).
     dragging = true; moved = false;
+    startX = point.clientX; startY = point.clientY;
     const rect = icon.getBoundingClientRect();
     offX = point.clientX - rect.left;
     offY = point.clientY - rect.top;
@@ -67,13 +72,17 @@ function makeIconDraggable(icon){
   }
   function onMove(e){
     if(!dragging) return;
-    if(e.type === 'touchmove') e.preventDefault();
     const point = e.type === 'touchmove' ? e.touches[0] : e;
     if(!moved){
+      const dx = point.clientX - startX, dy = point.clientY - startY;
+      if(Math.hypot(dx, dy) < DRAG_THRESHOLD) return; // todavía no es un arrastre real
+      if(e.type === 'touchmove') e.preventDefault();
       toAbsolute();
       moved = true;
       icon.classList.add('dragging');
       icon.style.zIndex = 5;
+    } else if(e.type === 'touchmove'){
+      e.preventDefault();
     }
     const desk = document.getElementById('desktop');
     const deskRect = desk.getBoundingClientRect();
