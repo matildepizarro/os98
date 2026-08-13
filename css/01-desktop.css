@@ -3,11 +3,32 @@
    Escritorio — íconos
    ===================================================================== */
   /* ================= DESKTOP ================= */
+  /* Grid de verdad (no flex): cada ícono reserva su propia celda de
+     84x84px. Esto es clave para que los grupos "fijos" (juegos en la
+     esquina inferior izquierda, canciones en la superior derecha, ver
+     js/desktop/03-icons-group-games.js y 04-icons-fixed-position.js)
+     puedan anclarse con grid-column/grid-row sin arriesgarse a que,
+     en una ventana angosta, los íconos normales del flujo "invadan"
+     esa zona y terminen superpuestos (bug de textos amontonados). */
   #desktop{
     position:fixed; inset:0; bottom:34px;
-    display:flex; flex-wrap:wrap; align-content:flex-start;
+    display:grid;
+    grid-template-columns: repeat(auto-fill, 84px);
+    grid-template-rows: repeat(auto-fill, 84px);
+    grid-auto-flow: row;
+    align-content:start;
+    justify-content:start;
+    align-items:start;
     gap: 4px; padding: 10px;
+    /* red de seguridad: si alguna vez hay demasiados íconos para el
+       alto disponible (p.ej. pantallas muy chicas con muchas
+       canciones), se puede hacer scroll en vez de que algo se corte
+       o se superponga */
+    overflow-y:auto;
   }
+  /* el contenedor de íconos de canciones no debe ocupar una celda
+     propia: sus hijos participan directo del grid del escritorio */
+  #songIcons{ display:contents; }
   .icon{
     width:74px; text-align:center; color:#fff; font-size:11px;
     text-shadow: 1px 1px 0 #000;
