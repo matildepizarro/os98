@@ -150,6 +150,13 @@
     position:fixed; inset:0; background:#000; color:#fff; z-index:9000;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     font-family:'Courier New', monospace; text-align:center; gap:14px;
+    /* seguro anti-bloqueo: si por lo que sea el JS no llega a ocultar esta
+       pantalla, que al menos deje de tapar los clics del resto del sistema
+       apenas termina su propia animación (ver keyframe abajo) */
+    animation: bootSplashAllowClicksEventually 0s linear 8s forwards;
+  }
+  @keyframes bootSplashAllowClicksEventually{
+    to{ pointer-events:none; }
   }
   #bootSplash .bootlogo-img{
     width: 150px; height: 150px; object-fit:contain;

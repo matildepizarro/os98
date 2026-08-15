@@ -104,17 +104,37 @@ function spawnToastMessage(text){
   document.body.appendChild(t);
   setTimeout(()=>t.remove(), 3200);
 }
-document.getElementById('iconGlitchToggle').addEventListener('dblclick', ()=>{
-  setGlitchEffectsEnabled(!glitchEffectsEnabled);
-});
-updateGlitchToggleIcon();
+(function(){
+  const iconGlitchToggle = document.getElementById('iconGlitchToggle');
+  if(iconGlitchToggle){
+    iconGlitchToggle.addEventListener('dblclick', ()=>{
+      setGlitchEffectsEnabled(!glitchEffectsEnabled);
+    });
+  }
+  updateGlitchToggleIcon();
+})();
 
-/* ---------------- BOOT SPLASH: se oculta tras cargar ---------------- */
-const bootSplash = document.getElementById('bootSplash');
-window.addEventListener('load', ()=>{
-  setTimeout(()=>{
+/* ---------------- BOOT SPLASH: se oculta tras cargar ----------------
+   IMPORTANTE: este bloque va aislado y blindado con try/catch a propósito.
+   Si CUALQUIER otra cosa en este archivo (o en el sistema de íconos de
+   arriba) llegara a tirar un error, este código de todos modos tiene que
+   ejecutarse igual, porque #bootSplash tapa TODA la pantalla con
+   z-index:9000. Si esta ventana se queda pegada, ningún clic en el
+   escritorio (menú inicio, webcam, íconos, nada) va a funcionar, y encima
+   puede pasar sin ningún error visible en consola. */
+function hideBootSplashSafely(){
+  try{
+    const bootSplash = document.getElementById('bootSplash');
+    if(!bootSplash) return;
     bootSplash.style.transition = 'opacity .5s ease';
     bootSplash.style.opacity = '0';
-    setTimeout(()=> bootSplash.remove(), 550);
-  }, 2200);
-});
+    bootSplash.style.pointerEvents = 'none';
+    setTimeout(()=>{ try{ bootSplash.remove(); }catch(e){} }, 550);
+  }catch(e){
+    console.error('No se pudo ocultar #bootSplash:', e);
+  }
+}
+window.addEventListener('load', ()=>{ setTimeout(hideBootSplashSafely, 2200); });
+// red de seguridad extra: si por lo que sea 'load' nunca dispara el hide,
+// forzamos el cierre a los 6s igual para no dejar el escritorio bloqueado.
+setTimeout(hideBootSplashSafely, 6000);
